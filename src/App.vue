@@ -1,15 +1,24 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <textarea v-model="input"></textarea>
+  <div v-html="output"></div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+var md = require('markdown-it')();
+md.use(require('markdown-it-texmath'), { engine: require('katex') });
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      input: '$\\alpha$\n$$\\alpha$$',
+    }
+  },
+  computed: {
+    output() {
+      return md.render(this.input);
+    }
   }
 }
 </script>
